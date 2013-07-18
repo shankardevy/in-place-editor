@@ -3,11 +3,10 @@
     <head>
 		<title>Toolbar.js - jQuery plugin to create tooltip style toobars</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<link href="jquery.toolbars.css" rel="stylesheet" />
-
-		<link href="bootstrap.icons.css" rel="stylesheet"> 
-		<script src="jquery.min.js"></script>
-		<script src="jquery.toolbar.js"></script>
+		<link href="css/font-awesome.css" rel="stylesheet" /> 
+		<link href="css/editor.css" rel="stylesheet"/> 
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.toolbar.js"></script>
 		
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {	
@@ -20,24 +19,9 @@
 				$('#asset-button').toolbar({content: '#editor-asset-options', position: 'top'});
 			});
 		</script>
-		<style>
-.button-set {
-    background-color: #CCCCCC;
-    border: 1px solid #BBBBBB;
-    border-radius: 2px 2px 2px 2px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.26) inset, 0 1px 0 0 rgba(255, 255, 255, 0.15);
-    display: block;
-    float: left;
-    height: 28px;
-    margin: 20px 10px 20px 0;
-    opacity: 0.7;
-    padding: 0 0 5px 20px;
-    width: 36px;
-    z-index: 2;
-}
-</style>
+
 	</head>
-	<body >
+	<body>
         <article contentEditable="true">
         	<h2>For casual visitors</h2>
 Visitors to Auroville are sometimes disappointed to find here no Ashram, no typical tourist attractions or generally welcoming atmosphere. This is firstly because Auroville is quite different to the Sri Aurobindo Ashram, where people are considered to have consecrated their lives to integral yoga (as compared, in Auroville, to an experiment in human unity), and secondly because Auroville is not a tourist place, despite being referred to in travel and tourist literature, and does not devote as much time and energy to welcoming tourists as sites established specifically for that purpose.
@@ -71,7 +55,7 @@ Guests who are staying in Auroville in an unregistered guesthouse, with family o
 </article>
         <div id="editor-toolbar">
         <span class="button-set" id="text-button"><i class="icon-font"></i></span>
-        <span class="button-set" id="asset-button"><i class="icon-file"></i></span>
+        <span class="button-set" id="asset-button"><i class="icon-paper-clip"></i></span>
     </div>
 
 		<div id="editor-text-options" class="toolbar-icons" style="display: none;">
