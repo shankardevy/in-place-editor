@@ -1,97 +1,19 @@
-.tool-item{
-    color:#333;
+[contenteditable="true"]:active,
+[contenteditable="true"]:focus{
+  border:none;
+  outline:none;
 }
-#text-button,
-#asset-button 
-{
-    
-    background-color: #EEEEEE;
-    background-image: -moz-linear-gradient(center top , #EEEEEE, #E0E0E0);
+.editable[contentEditable="true"] {
     border-color: #CCCCCC;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
-    border-radius: 2px 2px 2px 2px;
-    border-style: solid;
+    border-left: 1px dashed #CCCCCC;
+    border-right: 1px dashed #CCCCCC;
+    border-style: dashed;
     border-width: 1px;
-    font-weight: bold;
-    height: 24px;
-    line-height: 24px;
-    padding: 5px 5px 5px 5px;
- 
 }
-.tool-items
-{
-   background-color: #EEEEEE;
-border: 1px solid #CFCFCF;
-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
-padding: 5px 0px;
-
-
+.editable {
+  border: 1px solid #fff;
 }
 
-#editor-asset-options .tool-items
-{
-    margin-left:-35px;
+#inplace-editor-toolbar {
+  display: none;
 }
-.tool-items .gradient
-{
-    color:#444444;
-    margin: 5px;
-    padding: 10px 5px;
-    
-}
-.tool-items .gradient i
-{
-
-  padding: 0px 5px;
-  font-size: 12px;
- 
-}
-.tool-items .icon-text-height.first,
-.tool-items .tool-item .icon-file
-{
-    border-left:none;
-}
-.tool-items .icon-align-left.last,
-.tool-items .tool-item .icon-unlink
-{
-   border-right:none;   
-}
-
-.tool-items a:hover{
-    border:1px solid #ccc;
-     padding: 0px 5px;
-     overflow-x: hidden;
-}
-.tool-container.gradient.tool-top.tool-rounded
-{
- margin-left: -11px;   
-}
-.tool-item .icon-italic
-{
-    border: none;
-}
-.tool-item .icon-underline
-{
-    border-right:1px solid #ccc; 
-}
-.tool-item .icon-bold,
-.tool-item .icon-list-ol
-{
-   border-left: 1px solid #ccc; 
-}
-.tool-item .icon-file,
-.tool-item .icon-picture,
-.tool-item .icon-link,
-.tool-item .icon-unlink{
-    border-right:1px solid #ccc;
-}
-#editor-toolbar
-{
-  padding-left: 1px;
-     margin-top: 50px; 
-}
-.tool-container.tool-right .tool-items
-{
-    margin-left: -45px;
-}
-

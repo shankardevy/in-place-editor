@@ -1,78 +1,182 @@
 <!DOCTYPE html>
 <html>
-    <head>
-		<title>Editor</title>
-		<link href="css/font-awesome.css" rel="stylesheet" /> 
-		<link href="css/editor.css" rel="stylesheet"/> 
-		<script src="js/jquery.min.js"></script>
-		<script src="js/jquery.toolbar.js"></script>
-		
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {	
-				// Define any icon actions before calling the toolbar 
-				$('.toolbar-icons a').on('click', function( event ) {
-					event.preventDefault(); 
-				});
+<head>
+	<title>Homebrewed Editor for Auroville!</title>
 
-				$('#text-button').toolbar({content: '#editor-text-options', position: 'top'});
-				$('#asset-button').toolbar({content: '#editor-asset-options', position: 'right'});
-			});
-		</script>
+	<link href="css/bootstrap.min.css" rel="stylesheet" /> 
+	<link href="css/bootstrap-switch.css" rel="stylesheet" /> 
+	<link href="css/font-awesome.css" rel="stylesheet" /> 
+	<link href="css/editor.css" rel="stylesheet" /> 
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-switch.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		// enable bootswitch
+		 jQuery('.switch')['bootstrapSwitch']();
 
-	</head>
-	<body>
-        <article contentEditable="true">
-        	<h2>For casual visitors</h2>
-Visitors to Auroville are sometimes disappointed to find here no Ashram, no typical tourist attractions or generally welcoming atmosphere. This is firstly because Auroville is quite different to the Sri Aurobindo Ashram, where people are considered to have consecrated their lives to integral yoga (as compared, in Auroville, to an experiment in human unity), and secondly because Auroville is not a tourist place, despite being referred to in travel and tourist literature, and does not devote as much time and energy to welcoming tourists as sites established specifically for that purpose.
-Casual/day visitors are encouraged to go first to the Visitors Centre, which is open daily (except on Diwali and on Pongal day) from 9:00 to 17:30, and offers information, exhibitions, a video viewing facility, a cafeteria and shopping facilities.
-Those who come with a deeper interest and actually want to visit one of Auroville's projects should make an appointment with the concerned place through the Information Desk at the Visitors Centre.
- 
-<h2>Accommodation</h2>
-Guest accommodation is available in various settlements around the township area. Charges are from Rs 150 to Rs 4100 per person per night depending on the type of accommodation and facilities provided. Pre-booking is advised, especially for the December to March and August-September periods when it is very difficult to find accomodation. This can be done by contacting one of the guest houses directly.
- 
-On arriving you are kindly requested:
-- to fill an ARRIVAL FORM from the Indian authorities within 24 hours after your arrival. This is a legal requirement and required at each change of accommodation (even within Auroville)
-- to obtain a GUEST CARD valid for the period of your stay (regardless of its length) at your Guest House or Guest Service or Financial Service (Town Hall and Pour Tous / Aspiration): you need to take your passport and some money.
-- The Financial Service encashes foreign currencies and traveller's cheques and at the Town Hall can also accept your credit card.
- 
-<h2>Opening an account with Financial Service</h2>
-If your stay is longer than a week we advise you to open an account which is free of charge; this can be done at one of the 2 Financial Service offices
-A security deposit of Rs. 1,000- is requested as well as money to run your account. The deposit will be refunded when your account is closed. The account number will be noted on your guest card. Within Auroville you needn't carry cash as you may use your account like a credit card: you deposit money that will cover your bills using the various facilities such as Por Tous, Solar Kitchen, Cafeterias and snack bars, bakeries, health center, internet, classes, etc.
-Closing of accounts can only be done at Financial Service either on the day of departure or one day before, at the Town Hall or the Finance Service office next to PourTous/Aspiration.
- 
-Opening hours of Financial Services are from 9am to 12.30pm and from 3pm to 4.30pm, Monday to Saturday.
- 
-<h2>Guest contribution</h2>
-Note that each guest is asked, as are the Aurovilians, to contribute financially towards the maintenance and development of the township and its infrastructure (water, roads, electricity, afforestation, farms, education and so on...)
-At the present time guests are requested to give a contribution of Rs 100 per day per adult, reduced to Rs 50 per day for students and teenagers up to the age of 18.
-This contribution is already included in payments to registered guesthouses.
-There is no charge for children below the age of 12.
-This contribution goes towards financing and maintatining Auroville infrastructure and services. (Please note that each Aurovilian also contributes monthly for the same purpose)
- 
-<h2>Guest House Contributions</h2>
-Guests who are staying in Auroville in an unregistered guesthouse, with family or friends, or in a house-sitting arrangement will contribute Rs.100 per day of their stay in Auroville. This will be deducted from the guest's Financial Service account. Guests, who have no account, can pay directly to the Financial Service, where they will be given a Guest Card, and it is the responsibility of the Aurovilian host to make sure this happens.
-</article>
-        <div id="editor-toolbar">
-        <span class="button-set" id="text-button"><i class="icon-font"></i></span>
-        <span class="button-set" id="asset-button"><i class="icon-paper-clip"></i></span>
-    </div>
-		<div id="editor-text-options" class="toolbar-icons" style="display: none;">
-			<a href=""><i class="icon-text-height first"></i></a>
-			<a href=""><i class="icon-bold"></i></a>
-			<a href=""><i class="icon-italic"></i></a>
-			<a href=""><i class="icon-underline"></i></a>
-			<a href=""><i class="icon-list-ol"></i></a>
-			<a href=""><i class="icon-list-ul"></i></a>
-			<a href=""><i class="icon-align-left last"></i></a>
-		</div>	
+		 $('#editor-state').on('switch-change', function (e, data) {
+    var editable = data.value;
+    if(editable) {
+    	$('.editable').attr('contenteditable', true);
+    	$("#inplace-editor-toolbar").fadeIn();
+    } else {
+$('.editable').attr('contenteditable', false);
+       $("#inplace-editor-toolbar").fadeOut();
+    }
+    
+});
 
-		<div id="editor-asset-options" class="toolbar-icons" style="display: none;">
-			<a href="#"><i class="icon-file"></i></a>
-			<a href="#"><i class="icon-picture"></i></a>
-			<a href="#"><i class="icon-link"></i></a>
-			<a href="#"><i class="icon-unlink"></i></a>
+		// editor code
+		$('.editor-control').on('click', function() {
+			$this = $(this);
+			var tag = $this.data('tag'),
+			tag_value = $this.data('tag-value');
+			switch(tag) {
+				case 'bold':
+				case 'italic':
+				case 'superscript':
+				case 'insertorderedlist':
+				case 'insertunorderedlist':
+				case 'justifyCenter':
+				case 'justifyFull':
+				case 'justifyLeft':
+				case 'justifyRight':
+				document.execCommand(tag, false, null);
+				break;
+
+				case 'formatBlock':
+				document.execCommand(tag, false, tag_value);
+				break;
+
+				case 'insertHTML':
+				tag_value = '<p class="alert alert-info">Auroville is not a tourist place, despite being referred to in travel and tourist literature.</p>'
+				document.execCommand(tag, false, tag_value);
+
+				break;
+
+				case 'bold':
+
+				break;
+
+				case 'bold':
+
+				break;
+
+
+			}
+		});
+
+	});
+	</script>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span8">
+				<h1>Homebrewed Editor for Auroville!</h1>
+								<div class="editor-nav pull-right">
+					<form class="form-horizontal">
+					 <div class="control-group">
+<label class="control-label" for="editor-state"><strong>Edit</strong></label>
+<div class="controls">
+					<div id="editor-state" class="switch switch-small" data-on="success" data-off="default">
+					   <input type="checkbox" checked />
+					</div>
+</div>
+</div>
+</form>
+
+				</div><br/><br/>
+			<article contenteditable="true" class="editable">
+				<h2 id="test">For casual visitors</h2>
+				Visitors to Auroville are sometimes disappointed to find here no Ashram, no typical tourist attractions or generally welcoming atmosphere. This is firstly because Auroville is quite different to the Sri Aurobindo Ashram, where people are considered to have consecrated their lives to integral yoga (as compared, in Auroville, to an experiment in human unity), and secondly because Auroville is not a tourist place, despite being referred to in travel and tourist literature, and does not devote as much time and energy to welcoming tourists as sites established specifically for that purpose.
+				Casual/day visitors are encouraged to go first to the Visitors Centre, which is open daily (except on Diwali and on Pongal day) from 9:00 to 17:30, and offers information, exhibitions, a video viewing facility, a cafeteria and shopping facilities.
+				Those who come with a deeper interest and actually want to visit one of Auroville's projects should make an appointment with the concerned place through the Information Desk at the Visitors Centre.
+
+				<h2>Accommodation</h2>
+				Guest accommodation is available in various settlements around the township area. Charges are from Rs 150 to Rs 4100 per person per night depending on the type of accommodation and facilities provided. Pre-booking is advised, especially for the December to March and August-September periods when it is very difficult to find accomodation. This can be done by contacting one of the guest houses directly.
+
+				On arriving you are kindly requested:
+				<br><br><ul><li>to fill an ARRIVAL FORM from the Indian authorities within 24 hours after your arrival. This is a legal requirement and required at each change of accommodation (even within Auroville)</li><li>&nbsp;to obtain a GUEST CARD valid for the period of your stay (regardless of its length) at your Guest House or Guest Service or Financial Service (Town Hall and Pour Tous / Aspiration): you need to take your passport and some money. <br></li><li>The Financial Service encashes foreign currencies and traveller's cheques and at the Town Hall can also accept your credit card.
+
+			</li></ul><h2>Guest House Contributions</h2>
+			Guests who are staying in Auroville in an unregistered guesthouse, with family or friends, or in a house-sitting arrangement will contribute Rs.100 per day of their stay in Auroville. This will be deducted from the guest's Financial Service account. Guests, who have no account, can pay directly to the Financial Service, where they will be given a Guest Card, and it is the responsibility of the Aurovilian host to make sure this happens.
+		</article>
+
+		<div id="inplace-editor-toolbar"  class="btn-toolbar">
+
+			<div class="btn-group">
+				<div class="btn-group">
+					<button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-text-height"></i></button>
+					<ul class="dropdown-menu">
+						<li>
+							<button class="btn editor-control" data-tag="formatBlock" data-tag-value="h2">Huge</button>
+							<button class="btn editor-control" data-tag="formatBlock" data-tag-value="h3">Large</button>
+							<button class="btn editor-control" data-tag="formatBlock" data-tag-value="h4">Small</button>
+							<button class="btn editor-control" data-tag="formatBlock" data-tag-value="p">Normal</button>
+						</li>
+					</ul>
+				</div>
+				<button data-tag="bold" class="btn editor-control"><i class="icon-bold"></i></button>
+				<button data-tag="italic" class="btn editor-control"><i class="icon-italic"></i></button>
+				<button data-tag="superscript" class="btn editor-control"><i class="icon-superscript"></i></button>
+				<button data-tag="insertorderedlist" class="btn editor-control"><i class="icon-list-ol"></i></button>
+				<button data-tag="insertunorderedlist" class="btn editor-control"><i class="icon-list-ul"></i></button>
+			</div>
+			<div class="btn-group">
+				<div class="btn-group dropup">
+					<button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-align-left"></i></button>
+					<ul class="dropdown-menu">
+						<li>
+							<div class="span4">
+								<button data-tag="justifyLeft" class="btn editor-control" data-toggle="tooltip" data-original-title="Align Left"><i class="icon-align-left"></i></button>
+								<button data-tag="justifyCenter" class="btn editor-control"><i class="icon-align-center"></i></button>
+								<button data-tag="justifyRight" class="btn editor-control"><i class="icon-align-right"></i></button>
+								<button data-tag="justifyFull" class="btn editor-control"><i class="icon-align-justify"></i></button>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="btn-group">
+				<button class="btn editor-control" data-tag="formatBlock" data-tag-value="div"><i class="icon-eraser"></i></button>
+				<button class="btn editor-control" data-tag="formatBlock" data-tag-value="blockquote"><i class="icon-quote-left"></i></button>
+				<button class="btn editor-control" data-tag="insertHTML"><i class="icon-star"></i></button>
+
+				<button class="btn editor-control" data-tag="formatBlock" data-tag-value="div"><i class="icon-sign-blank"></i></button>
+			</div>
+			<div class="btn-group dropup">
+				<button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-paperclip"></i></button>
+				<ul class="dropdown-menu">
+					<li>
+						<div class="span4">		<button class="btn"><i class="icon-file"></i></button>
+							<button class="btn"><i class="icon-picture"></i></button>
+							<button class="btn"><i class="icon-th-large"></i></button>
+							<button class="btn"><i class="icon-youtube-play"></i></button>
+							<button class="btn"><i class="icon-volume-up"></i></button>
+							<button class="btn"><i class="icon-th-list"></i></button>
+						</div>
+					</li>
+				</ul>
+			</div>
+<!--     <div class="btn-group">
+		<button class="btn"><i class="icon-paperclip"></i></button>
+		<button class="btn"><i class="icon-picture"></i></button>
+		<button class="btn"><i class="icon-th-large"></i></button>
+		<button class="btn"><i class="icon-youtube-play"></i></button>
+		<button class="btn"><i class="icon-volume-up"></i></button>
+		<button class="btn"><i class="icon-th-list"></i></button>
+	</div> --></div>
+			</div>
+			<div class="span4">
+
+			</div>
 			
-		</div>		
 
-	</body>
+</div>
+</div>
+</body>
 </html>
